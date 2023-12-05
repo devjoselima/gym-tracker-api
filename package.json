@@ -13,11 +13,13 @@
     "license": "ISC",
     "devDependencies": {
         "@types/node": "20.10.3",
+        "prisma": "5.6.0",
         "tsup": "8.0.1",
         "tsx": "4.6.2",
         "typescript": "5.3.2"
     },
     "dependencies": {
+        "@prisma/client": "5.6.0",
         "dotenv": "16.3.1",
         "fastify": "4.24.3",
         "zod": "3.22.4"
