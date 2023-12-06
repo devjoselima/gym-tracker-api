@@ -1,3 +1,4 @@
+import { UserAlreadyExistsError } from '@/errors/user'
 import {
     CreateUsersRepository,
     GetUserByEmailRepository,
@@ -24,7 +25,7 @@ export class CreateUserUseCase {
         )
 
         if (emailAlreadyExists) {
-            throw new Error('Email already exists.')
+            throw new UserAlreadyExistsError()
         }
 
         await this.createUserRepository.execute({

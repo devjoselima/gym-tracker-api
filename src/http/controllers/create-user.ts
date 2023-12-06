@@ -7,6 +7,8 @@ import {
     PrismaGetUserByEmailRepository,
 } from '@/repositories/prisma/users/'
 
+import { UserAlreadyExistsError } from '@/errors/user'
+
 export const createUserController = async (
     request: FastifyRequest,
     reply: FastifyReply
@@ -33,7 +35,13 @@ export const createUserController = async (
             password,
         })
     } catch (error) {
-        return reply.status(409).send()
+        if (error instanceof UserAlreadyExistsError) {
+            return reply.status(409).send({
+                message: error.message,
+            })
+        }
+
+        return reply.status(500).send()
     }
 
     return reply.status(201).send()
