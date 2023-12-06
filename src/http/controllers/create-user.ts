@@ -24,6 +24,7 @@ export const createUserController = async (
     try {
         const prismaUsersRepository = new PrismaCreateUsersRepository()
         const prismaGetUserByEmail = new PrismaGetUserByEmailRepository()
+
         const createUserUseCase = new CreateUserUseCase(
             prismaUsersRepository,
             prismaGetUserByEmail
@@ -41,7 +42,7 @@ export const createUserController = async (
             })
         }
 
-        return reply.status(500).send()
+        throw error
     }
 
     return reply.status(201).send()
