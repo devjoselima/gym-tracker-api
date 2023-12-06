@@ -1,8 +1,11 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { hash } from 'bcryptjs'
-import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
-import { createUserUseCase } from '@/use-cases/create-user'
+
+import { CreateUserUseCase } from '@/use-cases/create-user'
+import {
+    PrismaCreateUsersRepository,
+    PrismaGetUserByEmailRepository,
+} from '@/repositories/prisma/users/'
 
 export const createUserController = async (
     request: FastifyRequest,
@@ -17,7 +20,14 @@ export const createUserController = async (
     const { name, email, password } = registerBodySchema.parse(request.body)
 
     try {
-        await createUserUseCase({
+        const prismaUsersRepository = new PrismaCreateUsersRepository()
+        const prismaGetUserByEmail = new PrismaGetUserByEmailRepository()
+        const createUserUseCase = new CreateUserUseCase(
+            prismaUsersRepository,
+            prismaGetUserByEmail
+        )
+
+        await createUserUseCase.execute({
             name,
             email,
             password,
