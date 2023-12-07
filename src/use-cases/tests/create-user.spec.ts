@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 import { CreateUserUseCase } from '../create-user'
 import { compare } from 'bcryptjs'
 import {
@@ -7,19 +7,26 @@ import {
 } from '@/repositories/in-memory/in-memory-users-repository'
 import { UserAlreadyExistsError } from '@/errors/user'
 
+let createUserRepository: InMemoryCreateUserRepository
+let getUserByEmailRepository: InMemoryGetUserByEmailRepository
+let sut: CreateUserUseCase
+
 describe('Create User Use Case', () => {
-    it('should be able to register', async () => {
-        const createUserRepository = new InMemoryCreateUserRepository()
-        const getUserByEmailRepository = new InMemoryGetUserByEmailRepository(
+    beforeEach(() => {
+        createUserRepository = new InMemoryCreateUserRepository()
+        getUserByEmailRepository = new InMemoryGetUserByEmailRepository(
             createUserRepository
         )
 
-        const createUserUseCase = new CreateUserUseCase(
+        // SUT = SYSTEM UNDER TEST
+        sut = new CreateUserUseCase(
             createUserRepository,
             getUserByEmailRepository
         )
+    })
 
-        const { user } = await createUserUseCase.execute({
+    it('should be able to register', async () => {
+        const { user } = await sut.execute({
             name: 'John Doe',
             email: 'johndoe@email.com',
             password: '123456',
@@ -29,17 +36,7 @@ describe('Create User Use Case', () => {
     })
 
     it('should hash user password up on registration', async () => {
-        const createUserRepository = new InMemoryCreateUserRepository()
-        const getUserByEmailRepository = new InMemoryGetUserByEmailRepository(
-            createUserRepository
-        )
-
-        const createUserUseCase = new CreateUserUseCase(
-            createUserRepository,
-            getUserByEmailRepository
-        )
-
-        const { user } = await createUserUseCase.execute({
+        const { user } = await sut.execute({
             name: 'John Doe',
             email: 'johndoe@email.com',
             password: '123456',
@@ -54,26 +51,16 @@ describe('Create User Use Case', () => {
     })
 
     it('should not be able to register with same email twice', async () => {
-        const createUserRepository = new InMemoryCreateUserRepository()
-        const getUserByEmailRepository = new InMemoryGetUserByEmailRepository(
-            createUserRepository
-        )
-
-        const createUserUseCase = new CreateUserUseCase(
-            createUserRepository,
-            getUserByEmailRepository
-        )
-
         const email = 'johndoe@email.com'
 
-        await createUserUseCase.execute({
+        await sut.execute({
             name: 'John Doe',
             email,
             password: '123456',
         })
 
         await expect(() =>
-            createUserUseCase.execute({
+            sut.execute({
                 name: 'John Doe',
                 email,
                 password: '123456',
