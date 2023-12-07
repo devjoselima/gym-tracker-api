@@ -30,4 +30,20 @@ describe('Authenticate Use Case', () => {
 
         expect(user.id).toEqual(expect.any(String))
     })
+
+    it('should not be able to authenticate with wrong email', async () => {
+        const createUserRepository = new InMemoryCreateUserRepository()
+        const getUserByEmailRepository = new InMemoryGetUserByEmailRepository(
+            createUserRepository
+        )
+
+        const sut = new AuthenticateUseCase(getUserByEmailRepository) // SUT = SYSTEM UNDER TEST
+
+        expect(() =>
+            sut.execute({
+                email: 'johndoe@example.com',
+                password: '123456',
+            })
+        ).rejects.toBeInstanceOf(InvalidCredentialsError)
+    })
 })
