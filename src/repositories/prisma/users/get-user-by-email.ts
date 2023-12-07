@@ -1,6 +1,9 @@
 import { prisma } from '@/lib/prisma'
-import { GetUserByEmailRepository } from '@/repositories/users-repository'
+import { User } from '@prisma/client'
 
+export interface GetUserByEmailRepository {
+    execute(email: string): Promise<User | null>
+}
 export class PrismaGetUserByEmailRepository
     implements GetUserByEmailRepository
 {
