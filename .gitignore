@@ -3,3 +3,5 @@ build
 
 # Environment Variables
 .env 
+
+coverage
