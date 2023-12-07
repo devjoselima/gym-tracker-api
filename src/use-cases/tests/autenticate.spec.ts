@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { AuthenticateUseCase } from './authenticate'
+import { AuthenticateUseCase } from '../authenticate'
 import { hash } from 'bcryptjs'
 
 import {

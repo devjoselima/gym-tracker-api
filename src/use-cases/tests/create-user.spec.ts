@@ -1,5 +1,5 @@
 import { expect, describe, it } from 'vitest'
-import { CreateUserUseCase } from './create-user'
+import { CreateUserUseCase } from '../create-user'
 import { compare } from 'bcryptjs'
 import {
     InMemoryCreateUserRepository,
