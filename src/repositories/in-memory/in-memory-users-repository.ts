@@ -1,10 +1,11 @@
 import { User, Prisma } from '@prisma/client'
 import {
-    CreateUsersRepository,
-    GetUserByEmailRepository,
-} from '../users-repository'
+    ICreateUsersRepository,
+    IGetUserByEmailRepository,
+    IGetUserByIdRepository,
+} from '../interfaces-repositories'
 
-export class InMemoryCreateUserRepository implements CreateUsersRepository {
+export class InMemoryCreateUserRepository implements ICreateUsersRepository {
     public items: User[] = []
     async execute(data: Prisma.UserCreateInput) {
         const user = {
@@ -22,7 +23,7 @@ export class InMemoryCreateUserRepository implements CreateUsersRepository {
 }
 
 export class InMemoryGetUserByEmailRepository
-    implements GetUserByEmailRepository
+    implements IGetUserByEmailRepository
 {
     public items: User[] = []
     constructor(private createUserRepository: InMemoryCreateUserRepository) {
@@ -31,6 +32,24 @@ export class InMemoryGetUserByEmailRepository
 
     async execute(email: string) {
         const user = this.items.find((item) => item.email === email)
+
+        if (!user) {
+            return null
+        }
+
+        return user
+    }
+}
+
+export class InMemoryGetUserByIdRepository implements IGetUserByIdRepository {
+    public items: User[] = []
+
+    constructor(private createUserRepository: InMemoryCreateUserRepository) {
+        this.items = createUserRepository.items
+    }
+
+    async execute(id: string) {
+        const user = this.items.find((item) => item.id === id)
 
         if (!user) {
             return null

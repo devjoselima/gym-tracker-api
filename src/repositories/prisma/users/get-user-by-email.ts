@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { IGetUserByEmailRepository } from '@/repositories/Interfaces-repostories'
+import { IGetUserByEmailRepository } from '@/repositories/interfaces-repositories'
 
 export class PrismaGetUserByEmailRepository
     implements IGetUserByEmailRepository
