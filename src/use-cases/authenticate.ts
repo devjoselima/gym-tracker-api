@@ -1,5 +1,5 @@
 import { InvalidCredentialsError } from '@/errors/invalid-credentials-error'
-import { GetUserByEmailRepository } from '@/repositories/users-repository'
+import { IGetUserByEmailRepository } from '@/repositories/interfaces-repositories'
 import { User } from '@prisma/client'
 import { compare } from 'bcryptjs'
 
@@ -13,7 +13,7 @@ interface AuthenticateUseCaseResponse {
 }
 
 export class AuthenticateUseCase {
-    constructor(private getUserByEmailRepository: GetUserByEmailRepository) {}
+    constructor(private getUserByEmailRepository: IGetUserByEmailRepository) {}
 
     async execute({
         email,

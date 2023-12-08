@@ -1,8 +1,8 @@
 import { UserAlreadyExistsError } from '@/errors/user'
 import {
-    CreateUsersRepository,
-    GetUserByEmailRepository,
-} from '@/repositories/users-repository'
+    ICreateUsersRepository,
+    IGetUserByEmailRepository,
+} from '@/repositories/interfaces-repositories'
 import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
@@ -18,8 +18,8 @@ interface CreateUserCaseResponse {
 
 export class CreateUserUseCase {
     constructor(
-        private createUserRepository: CreateUsersRepository,
-        private getUserByEmailRepository: GetUserByEmailRepository
+        private createUserRepository: ICreateUsersRepository,
+        private getUserByEmailRepository: IGetUserByEmailRepository
     ) {}
 
     async execute({

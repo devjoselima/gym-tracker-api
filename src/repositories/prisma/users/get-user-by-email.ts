@@ -1,11 +1,8 @@
 import { prisma } from '@/lib/prisma'
-import { User } from '@prisma/client'
+import { IGetUserByEmailRepository } from '@/repositories/Interfaces-repostories'
 
-export interface GetUserByEmailRepository {
-    execute(email: string): Promise<User | null>
-}
 export class PrismaGetUserByEmailRepository
-    implements GetUserByEmailRepository
+    implements IGetUserByEmailRepository
 {
     async execute(email: string) {
         const userEmail = await prisma.user.findUnique({
