@@ -1,4 +1,7 @@
-import { ICreateCheckInRepository } from '@/repositories/interfaces-repositories'
+import {
+    ICreateCheckInRepository,
+    IGetCheckInByUserDate,
+} from '@/repositories/interfaces-repositories'
 import { CheckIn } from '@prisma/client'
 
 interface CheckInUseCaseRequest {
@@ -11,9 +14,24 @@ interface CheckInUseCaseResponse {
 }
 
 export class CreateCheckInUseCase {
-    constructor(private createCheckInRepository: ICreateCheckInRepository) {}
+    constructor(
+        private createCheckInRepository: ICreateCheckInRepository,
+        private getCheckInByUserDate: IGetCheckInByUserDate
+    ) {}
 
-    async execute({ userId, gymId }: CheckInUseCaseRequest) {
+    async execute({
+        userId,
+        gymId,
+    }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
+        const checkInOnSameDay = await this.getCheckInByUserDate.execute(
+            userId,
+            new Date()
+        )
+
+        if (checkInOnSameDay) {
+            throw new Error()
+        }
+
         const checkIn = await this.createCheckInRepository.execute({
             user_id: userId,
             gym_id: gymId,

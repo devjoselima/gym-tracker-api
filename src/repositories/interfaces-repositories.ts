@@ -15,3 +15,7 @@ export interface IGetUserByIdRepository {
 export interface ICreateCheckInRepository {
     execute(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn>
 }
+
+export interface IGetCheckInByUserDate {
+    execute(userId: string, date: Date): Promise<CheckIn | null>
+}
