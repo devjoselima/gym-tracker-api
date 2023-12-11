@@ -3,7 +3,7 @@ import {
     ICreateUsersRepository,
     IGetUserByEmailRepository,
     IGetUserByIdRepository,
-} from '../interfaces-repositories'
+} from '../interfaces'
 
 export class InMemoryCreateUserRepository implements ICreateUsersRepository {
     public items: User[] = []

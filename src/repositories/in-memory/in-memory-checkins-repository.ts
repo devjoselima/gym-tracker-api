@@ -1,8 +1,5 @@
 import { Prisma, CheckIn } from '@prisma/client'
-import {
-    ICreateCheckInRepository,
-    IGetCheckInByUserDate,
-} from '../interfaces-repositories'
+import { ICreateCheckInRepository, IGetCheckInByUserDate } from '../interfaces'
 import { randomUUID } from 'crypto'
 import dayjs from 'dayjs'
 

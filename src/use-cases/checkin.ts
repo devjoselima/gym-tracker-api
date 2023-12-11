@@ -1,7 +1,7 @@
 import {
     ICreateCheckInRepository,
     IGetCheckInByUserDate,
-} from '@/repositories/interfaces-repositories'
+} from '@/repositories/interfaces'
 import { CheckIn } from '@prisma/client'
 
 interface CheckInUseCaseRequest {

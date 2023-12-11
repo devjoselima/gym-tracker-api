@@ -2,7 +2,7 @@ import { UserAlreadyExistsError } from '@/errors/user'
 import {
     ICreateUsersRepository,
     IGetUserByEmailRepository,
-} from '@/repositories/interfaces-repositories'
+} from '@/repositories/interfaces'
 import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 

@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { ICreateUsersRepository } from '@/repositories/interfaces-repositories'
+import { ICreateUsersRepository } from '@/repositories/interfaces'
 import { Prisma } from '@prisma/client'
 
 export class PrismaCreateUsersRepository implements ICreateUsersRepository {

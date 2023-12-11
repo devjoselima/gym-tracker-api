@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/errors/resource-not-found'
-import { IGetUserByIdRepository } from '@/repositories/interfaces-repositories'
+import { IGetUserByIdRepository } from '@/repositories/interfaces'
 import { User } from '@prisma/client'
 
 interface GetUserProfileUseCaseRequest {
