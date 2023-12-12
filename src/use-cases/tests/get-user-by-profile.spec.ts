@@ -5,7 +5,7 @@ import {
 import { beforeEach, describe, expect, it } from 'vitest'
 import { GetUserProfileUseCase } from '../get-user-profile'
 import { hash } from 'bcryptjs'
-import { ResourceNotFoundError } from '@/errors/resource-not-found'
+import { ResourceNotFoundError } from '../errors/'
 
 let createUserRepository: InMemoryCreateUserRepository
 let getUserByIdRepository: InMemoryGetUserByIdRepository

@@ -1,4 +1,4 @@
-import { UserAlreadyExistsError } from '@/errors/user'
+import { UserAlreadyExistsError } from './errors'
 import {
     ICreateUsersRepository,
     IGetUserByEmailRepository,

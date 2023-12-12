@@ -6,7 +6,7 @@ export class InMemoryCreateGymRepository implements ICreateGymRepository {
     public items: Gym[] = []
     async execute(data: Prisma.GymCreateInput) {
         const gym = {
-            id: randomUUID(),
+            id: data.id ?? randomUUID(),
             title: data.title,
             description: data.description ?? null,
             phone: data.phone ?? null,

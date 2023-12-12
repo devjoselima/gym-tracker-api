@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/errors/resource-not-found'
+import { ResourceNotFoundError } from './errors'
 import {
     ICreateCheckInRepository,
     IGetCheckInByUserDate,

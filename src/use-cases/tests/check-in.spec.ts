@@ -17,7 +17,7 @@ let getGymByIdRepository: InMemoryGetGymById
 let sut: CreateCheckInUseCase
 
 describe('Check In use case', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         createGymRepository = new InMemoryCreateGymRepository()
         createCheckInRepository = new InMemoryCheckInsRepository()
         getCheckInByUserDate = new InMemoryGetCheckInByUserDate(
@@ -32,13 +32,13 @@ describe('Check In use case', () => {
             getGymByIdRepository
         )
 
-        getGymByIdRepository.items.push({
+        await createGymRepository.execute({
             id: 'gym-01',
             title: 'Javascript Gym',
             description: '',
             phone: '',
-            latitude: new Decimal(0),
-            longitude: new Decimal(0),
+            latitude: 0,
+            longitude: 0,
         })
 
         vi.useFakeTimers()

@@ -6,7 +6,7 @@ import {
     InMemoryCreateUserRepository,
     InMemoryGetUserByEmailRepository,
 } from '@/repositories/in-memory/in-memory-users-repository'
-import { InvalidCredentialsError } from '@/errors/invalid-credentials-error'
+import { InvalidCredentialsError } from '../errors/'
 
 let createUserRepository: InMemoryCreateUserRepository
 let getUserByEmailRepository: InMemoryGetUserByEmailRepository

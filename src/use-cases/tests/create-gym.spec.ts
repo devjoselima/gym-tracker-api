@@ -14,8 +14,8 @@ describe('Create Gym Use Case', () => {
     it('should be able to create gym', async () => {
         const { gym } = await sut.execute({
             title: 'Javascript Gym',
-            description: '',
-            phone: '',
+            description: null,
+            phone: null,
             latitude: 0,
             longitude: 0,
         })

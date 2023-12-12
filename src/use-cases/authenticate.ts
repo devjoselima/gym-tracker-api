@@ -1,7 +1,7 @@
-import { InvalidCredentialsError } from '@/errors/invalid-credentials-error'
 import { IGetUserByEmailRepository } from '@/repositories/interfaces'
 import { User } from '@prisma/client'
 import { compare } from 'bcryptjs'
+import { InvalidCredentialsError } from './errors'
 
 interface AuthenticateUseCaseRequest {
     email: string
