@@ -4,9 +4,13 @@ import {
     InMemoryGetCheckInByUserDate,
 } from '@/repositories/in-memory/in-memory-checkins-repository'
 import { CreateCheckInUseCase } from '../checkin'
-import { InMemoryGetGymById } from '@/repositories/in-memory/in-memory-gyms-repositories'
+import {
+    InMemoryCreateGymRepository,
+    InMemoryGetGymById,
+} from '@/repositories/in-memory/in-memory-gyms-repositories'
 import { Decimal } from '@prisma/client/runtime/library'
 
+let createGymRepository: InMemoryCreateGymRepository
 let createCheckInRepository: InMemoryCheckInsRepository
 let getCheckInByUserDate: InMemoryGetCheckInByUserDate
 let getGymByIdRepository: InMemoryGetGymById
@@ -14,11 +18,12 @@ let sut: CreateCheckInUseCase
 
 describe('Check In use case', () => {
     beforeEach(() => {
+        createGymRepository = new InMemoryCreateGymRepository()
         createCheckInRepository = new InMemoryCheckInsRepository()
         getCheckInByUserDate = new InMemoryGetCheckInByUserDate(
             createCheckInRepository
         )
-        getGymByIdRepository = new InMemoryGetGymById()
+        getGymByIdRepository = new InMemoryGetGymById(createGymRepository)
 
         // SUT = SYSTEM UNDER TEST
         sut = new CreateCheckInUseCase(
