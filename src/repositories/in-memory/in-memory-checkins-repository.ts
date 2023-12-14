@@ -1,9 +1,15 @@
 import { Prisma, CheckIn } from '@prisma/client'
-import { ICreateCheckInRepository, IGetCheckInByUserDate } from '../interfaces'
+import {
+    ICreateCheckInRepository,
+    IFindManyCheckInsByUserId,
+    IGetCheckInByUserDate,
+} from '../interfaces'
 import { randomUUID } from 'crypto'
 import dayjs from 'dayjs'
 
-export class InMemoryCheckInsRepository implements ICreateCheckInRepository {
+export class InMemoryCreateCheckInsRepository
+    implements ICreateCheckInRepository
+{
     public items: CheckIn[] = []
     async execute(data: Prisma.CheckInUncheckedCreateInput) {
         const checkIn = {
@@ -24,7 +30,9 @@ export class InMemoryCheckInsRepository implements ICreateCheckInRepository {
 
 export class InMemoryGetCheckInByUserDate implements IGetCheckInByUserDate {
     public items: CheckIn[] = []
-    constructor(private createCheckInRepository: InMemoryCheckInsRepository) {
+    constructor(
+        private createCheckInRepository: InMemoryCreateCheckInsRepository
+    ) {
         this.items = createCheckInRepository.items
     }
 
@@ -46,5 +54,20 @@ export class InMemoryGetCheckInByUserDate implements IGetCheckInByUserDate {
         }
 
         return checkInOnSameDate
+    }
+}
+
+export class InMemoryFindManyCheckInsByUserId
+    implements IFindManyCheckInsByUserId
+{
+    public items: CheckIn[] = []
+    constructor(
+        private createCheckInRepository: InMemoryCreateCheckInsRepository
+    ) {
+        this.items = createCheckInRepository.items
+    }
+
+    async execute(userId: string) {
+        return this.items.filter((item) => item.user_id === userId)
     }
 }
