@@ -6,3 +6,7 @@ export interface ICreateGymRepository {
 export interface IGetGymById {
     execute(id: string): Promise<Gym | null>
 }
+
+export interface ISearchGymsByTitle {
+    execute(query: string, page: number): Promise<Gym[]>
+}
