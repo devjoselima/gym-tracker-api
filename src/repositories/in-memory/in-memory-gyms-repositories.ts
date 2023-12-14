@@ -1,5 +1,9 @@
 import { Gym, Prisma } from '@prisma/client'
-import { IGetGymById, ICreateGymRepository } from '../interfaces'
+import {
+    IGetGymById,
+    ICreateGymRepository,
+    ISearchGymsByTitle,
+} from '../interfaces'
 import { randomUUID } from 'crypto'
 
 export class InMemoryCreateGymRepository implements ICreateGymRepository {
@@ -33,5 +37,17 @@ export class InMemoryGetGymById implements IGetGymById {
         }
 
         return gym
+    }
+}
+export class InMemorySearchGymsByTitle implements ISearchGymsByTitle {
+    public items: Gym[] = []
+    constructor(private createGymRepository: InMemoryCreateGymRepository) {
+        this.items = createGymRepository.items
+    }
+
+    async execute(query: string, page: number) {
+        return this.items
+            .filter((item) => item.title.includes(query))
+            .slice((page - 1) * 20, page * 20)
     }
 }
