@@ -3,8 +3,11 @@ import {
     IGetGymById,
     ICreateGymRepository,
     ISearchGymsByTitle,
+    IFetchNearBy,
+    FetchNearByParams,
 } from '../interfaces'
 import { randomUUID } from 'crypto'
+import { getDistanceBetweenCoordinates } from '@/use-cases/utils/get-distance-between-coordinate'
 
 export class InMemoryCreateGymRepository implements ICreateGymRepository {
     public items: Gym[] = []
@@ -49,5 +52,29 @@ export class InMemorySearchGymsByTitle implements ISearchGymsByTitle {
         return this.items
             .filter((item) => item.title.includes(query))
             .slice((page - 1) * 20, page * 20)
+    }
+}
+
+export class InMemoryFetchNearBy implements IFetchNearBy {
+    public items: Gym[] = []
+    constructor(private createGymRepository: InMemoryCreateGymRepository) {
+        this.items = createGymRepository.items
+    }
+
+    async execute(params: FetchNearByParams) {
+        return this.items.filter((item) => {
+            const distance = getDistanceBetweenCoordinates(
+                {
+                    latitude: params.latitude,
+                    longitude: params.longitude,
+                },
+                {
+                    latitude: item.latitude.toNumber(),
+                    longitude: item.longitude.toNumber(),
+                }
+            )
+
+            return distance < 10
+        })
     }
 }
