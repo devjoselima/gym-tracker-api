@@ -6,3 +6,7 @@ export interface ICreateCheckInRepository {
 export interface IGetCheckInByUserDate {
     execute(userId: string, date: Date): Promise<CheckIn | null>
 }
+
+export interface IFindManyCheckInsByUserId {
+    execute(userId: string): Promise<CheckIn[]>
+}
