@@ -1,5 +1,6 @@
 import { Prisma, CheckIn } from '@prisma/client'
 import {
+    ICountCheckInsByUserId,
     ICreateCheckInRepository,
     IFindManyCheckInsByUserId,
     IGetCheckInByUserDate,
@@ -71,5 +72,18 @@ export class InMemoryFindManyCheckInsByUserId
         return this.items
             .filter((item) => item.user_id === userId)
             .slice((page - 1) * 20, page * 20)
+    }
+}
+
+export class InMemoryCountCheckInsByUserId implements ICountCheckInsByUserId {
+    public items: CheckIn[] = []
+    constructor(
+        private createCheckInRepository: InMemoryCreateCheckInsRepository
+    ) {
+        this.items = createCheckInRepository.items
+    }
+
+    async execute(userId: string) {
+        return this.items.filter((item) => item.user_id === userId).length
     }
 }
