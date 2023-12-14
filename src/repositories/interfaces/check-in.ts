@@ -10,3 +10,7 @@ export interface IGetCheckInByUserDate {
 export interface IFindManyCheckInsByUserId {
     execute(userId: string, page: number): Promise<CheckIn[]>
 }
+
+export interface ICountCheckInsByUserId {
+    execute(userId: string): Promise<number>
+}
