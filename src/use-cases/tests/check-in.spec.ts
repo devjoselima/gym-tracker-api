@@ -1,6 +1,6 @@
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import {
-    InMemoryCheckInsRepository,
+    InMemoryCreateCheckInsRepository,
     InMemoryGetCheckInByUserDate,
 } from '@/repositories/in-memory/in-memory-checkins-repository'
 import { CreateCheckInUseCase } from '../checkin'
@@ -12,7 +12,7 @@ import { Decimal } from '@prisma/client/runtime/library'
 import { MaxDistanceError, MaxNumberOfCheckInsError } from '../errors'
 
 let createGymRepository: InMemoryCreateGymRepository
-let createCheckInRepository: InMemoryCheckInsRepository
+let createCheckInRepository: InMemoryCreateCheckInsRepository
 let getCheckInByUserDate: InMemoryGetCheckInByUserDate
 let getGymByIdRepository: InMemoryGetGymById
 let sut: CreateCheckInUseCase
@@ -20,7 +20,7 @@ let sut: CreateCheckInUseCase
 describe('Check In use case', () => {
     beforeEach(async () => {
         createGymRepository = new InMemoryCreateGymRepository()
-        createCheckInRepository = new InMemoryCheckInsRepository()
+        createCheckInRepository = new InMemoryCreateCheckInsRepository()
         getCheckInByUserDate = new InMemoryGetCheckInByUserDate(
             createCheckInRepository
         )
