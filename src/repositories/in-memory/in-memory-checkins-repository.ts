@@ -1,11 +1,11 @@
 import { Prisma, CheckIn } from '@prisma/client'
 import {
-    ICountCheckInsByUserId,
+    ICountCheckInsByUserIdRepository,
     ICreateCheckInRepository,
-    IFindManyCheckInsByUserId,
-    IGetCheckInByUserDate,
-    IGetCheckinById,
-    ISaveCheckin,
+    IFindManyCheckInsByUserIdRepository,
+    IGetCheckInByUserDateRepository,
+    IGetCheckinByIdRepository,
+    ISaveCheckinRepository,
 } from '../interfaces'
 import { randomUUID } from 'crypto'
 import dayjs from 'dayjs'
@@ -31,7 +31,9 @@ export class InMemoryCreateCheckInsRepository
     }
 }
 
-export class InMemoryGetCheckInByUserDate implements IGetCheckInByUserDate {
+export class InMemoryGetCheckInByUserDate
+    implements IGetCheckInByUserDateRepository
+{
     public items: CheckIn[] = []
     constructor(
         private createCheckInRepository: InMemoryCreateCheckInsRepository
@@ -61,7 +63,7 @@ export class InMemoryGetCheckInByUserDate implements IGetCheckInByUserDate {
 }
 
 export class InMemoryFindManyCheckInsByUserId
-    implements IFindManyCheckInsByUserId
+    implements IFindManyCheckInsByUserIdRepository
 {
     public items: CheckIn[] = []
     constructor(
@@ -77,7 +79,9 @@ export class InMemoryFindManyCheckInsByUserId
     }
 }
 
-export class InMemoryCountCheckInsByUserId implements ICountCheckInsByUserId {
+export class InMemoryCountCheckInsByUserId
+    implements ICountCheckInsByUserIdRepository
+{
     public items: CheckIn[] = []
     constructor(
         private createCheckInRepository: InMemoryCreateCheckInsRepository
@@ -90,7 +94,7 @@ export class InMemoryCountCheckInsByUserId implements ICountCheckInsByUserId {
     }
 }
 
-export class InMemoryGetCheckinById implements IGetCheckinById {
+export class InMemoryGetCheckinById implements IGetCheckinByIdRepository {
     public items: CheckIn[] = []
     constructor(
         private createCheckInRepository: InMemoryCreateCheckInsRepository
@@ -109,7 +113,7 @@ export class InMemoryGetCheckinById implements IGetCheckinById {
     }
 }
 
-export class InMemorySaveCheckinRepository implements ISaveCheckin {
+export class InMemorySaveCheckinRepository implements ISaveCheckinRepository {
     public items: CheckIn[] = []
     constructor(
         private createCheckInRepository: InMemoryCreateCheckInsRepository
