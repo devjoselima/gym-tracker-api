@@ -1,10 +1,10 @@
 import { Gym, Prisma } from '@prisma/client'
 import {
-    IGetGymById,
+    IGetGymByIdRepository,
     ICreateGymRepository,
-    ISearchGymsByTitle,
-    IFetchNearBy,
-    FetchNearByParams,
+    ISearchGymsByTitleRepository,
+    IFetchNearByRepository,
+    FetchNearByParamsRepository,
 } from '../interfaces'
 import { randomUUID } from 'crypto'
 import { getDistanceBetweenCoordinates } from '@/use-cases/utils/get-distance-between-coordinate'
@@ -27,7 +27,7 @@ export class InMemoryCreateGymRepository implements ICreateGymRepository {
         return gym
     }
 }
-export class InMemoryGetGymById implements IGetGymById {
+export class InMemoryGetGymById implements IGetGymByIdRepository {
     public items: Gym[] = []
     constructor(private createGymRepository: InMemoryCreateGymRepository) {
         this.items = createGymRepository.items
@@ -42,7 +42,7 @@ export class InMemoryGetGymById implements IGetGymById {
         return gym
     }
 }
-export class InMemorySearchGymsByTitle implements ISearchGymsByTitle {
+export class InMemorySearchGymsByTitle implements ISearchGymsByTitleRepository {
     public items: Gym[] = []
     constructor(private createGymRepository: InMemoryCreateGymRepository) {
         this.items = createGymRepository.items
@@ -55,13 +55,13 @@ export class InMemorySearchGymsByTitle implements ISearchGymsByTitle {
     }
 }
 
-export class InMemoryFetchNearBy implements IFetchNearBy {
+export class InMemoryFetchNearBy implements IFetchNearByRepository {
     public items: Gym[] = []
     constructor(private createGymRepository: InMemoryCreateGymRepository) {
         this.items = createGymRepository.items
     }
 
-    async execute(params: FetchNearByParams) {
+    async execute(params: FetchNearByParamsRepository) {
         return this.items.filter((item) => {
             const distance = getDistanceBetweenCoordinates(
                 {

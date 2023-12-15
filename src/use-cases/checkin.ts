@@ -6,8 +6,8 @@ import {
 
 import {
     ICreateCheckInRepository,
-    IGetCheckInByUserDate,
-    IGetGymById,
+    IGetCheckInByUserDateRepository,
+    IGetGymByIdRepository,
 } from '@/repositories/interfaces'
 
 import { CheckIn } from '@prisma/client'
@@ -28,8 +28,8 @@ interface CheckInUseCaseResponse {
 export class CreateCheckInUseCase {
     constructor(
         private createCheckInRepository: ICreateCheckInRepository,
-        private getCheckInByUserDate: IGetCheckInByUserDate,
-        private getGymByIdRepository: IGetGymById
+        private getCheckInByUserDate: IGetCheckInByUserDateRepository,
+        private getGymByIdRepository: IGetGymByIdRepository
     ) {}
 
     async execute({
