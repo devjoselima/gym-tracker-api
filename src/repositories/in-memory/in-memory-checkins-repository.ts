@@ -4,6 +4,8 @@ import {
     ICreateCheckInRepository,
     IFindManyCheckInsByUserId,
     IGetCheckInByUserDate,
+    IGetCheckinById,
+    ISaveCheckin,
 } from '../interfaces'
 import { randomUUID } from 'crypto'
 import dayjs from 'dayjs'
@@ -85,5 +87,45 @@ export class InMemoryCountCheckInsByUserId implements ICountCheckInsByUserId {
 
     async execute(userId: string) {
         return this.items.filter((item) => item.user_id === userId).length
+    }
+}
+
+export class InMemoryGetCheckinById implements IGetCheckinById {
+    public items: CheckIn[] = []
+    constructor(
+        private createCheckInRepository: InMemoryCreateCheckInsRepository
+    ) {
+        this.items = createCheckInRepository.items
+    }
+
+    async execute(id: string) {
+        const checkIn = this.items.find((item) => item.id === id)
+
+        if (!checkIn) {
+            return null
+        }
+
+        return checkIn
+    }
+}
+
+export class InMemorySaveCheckinRepository implements ISaveCheckin {
+    public items: CheckIn[] = []
+    constructor(
+        private createCheckInRepository: InMemoryCreateCheckInsRepository
+    ) {
+        this.items = createCheckInRepository.items
+    }
+
+    async execute(checkIn: CheckIn) {
+        const checkInIndex = this.items.findIndex(
+            (item) => item.id === checkIn.id
+        )
+
+        if (checkInIndex >= 0) {
+            this.items[checkInIndex] = checkIn
+        }
+
+        return checkIn
     }
 }
