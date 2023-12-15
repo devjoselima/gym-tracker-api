@@ -14,3 +14,11 @@ export interface IFindManyCheckInsByUserId {
 export interface ICountCheckInsByUserId {
     execute(userId: string): Promise<number>
 }
+
+export interface IGetCheckinById {
+    execute(id: string): Promise<CheckIn | null>
+}
+
+export interface ISaveCheckin {
+    execute(checkIn: CheckIn): Promise<CheckIn>
+}
