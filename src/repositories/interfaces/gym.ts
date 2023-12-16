@@ -1,6 +1,6 @@
 import { Gym, Prisma } from '@prisma/client'
 
-export interface FetchNearByParamsRepository {
+export interface FetchNearByParams {
     latitude: number
     longitude: number
 }
@@ -17,5 +17,5 @@ export interface ISearchGymsByTitleRepository {
 }
 
 export interface IFetchNearByRepository {
-    execute(params: FetchNearByParamsRepository): Promise<Gym[]>
+    execute(params: FetchNearByParams): Promise<Gym[]>
 }

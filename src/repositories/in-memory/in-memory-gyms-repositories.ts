@@ -4,7 +4,7 @@ import {
     ICreateGymRepository,
     ISearchGymsByTitleRepository,
     IFetchNearByRepository,
-    FetchNearByParamsRepository,
+    FetchNearByParams,
 } from '../interfaces'
 import { randomUUID } from 'crypto'
 import { getDistanceBetweenCoordinates } from '@/use-cases/utils/get-distance-between-coordinate'
@@ -61,7 +61,7 @@ export class InMemoryFetchNearBy implements IFetchNearByRepository {
         this.items = createGymRepository.items
     }
 
-    async execute(params: FetchNearByParamsRepository) {
+    async execute(params: FetchNearByParams) {
         return this.items.filter((item) => {
             const distance = getDistanceBetweenCoordinates(
                 {
