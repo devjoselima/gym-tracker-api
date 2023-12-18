@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { IGetCheckInByUserDateRepository } from '@/repositories/interfaces'
 import dayjs from 'dayjs'
 
-export class FindManyCheckInsByUserDateRepository
+export class PrismaFindManyCheckInsByUserDateRepository
     implements IGetCheckInByUserDateRepository
 {
     async execute(userId: string, date: Date) {
