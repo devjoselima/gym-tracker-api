@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { IFindManyCheckInsByUserIdRepository } from '@/repositories/interfaces'
 
-export class FindManyCheckInsByIdRepository
+export class PrismaFindManyCheckInsByIdRepository
     implements IFindManyCheckInsByUserIdRepository
 {
     async execute(userId: string, page: number) {

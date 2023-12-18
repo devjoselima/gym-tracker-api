@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { ICountCheckInsByUserIdRepository } from '@/repositories/interfaces'
 
-export class CountCheckInsByUserIdRepository
+export class PrismaCountCheckInsByUserIdRepository
     implements ICountCheckInsByUserIdRepository
 {
     async execute(userId: string) {
