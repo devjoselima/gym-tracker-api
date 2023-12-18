@@ -1,4 +1,4 @@
-import { ISearchGymsByTitle } from '@/repositories/interfaces'
+import { ISearchGymsByTitleRepository } from '@/repositories/interfaces'
 import { Gym } from '@prisma/client'
 
 interface SearchGymUseCaseParams {
@@ -11,7 +11,7 @@ interface SearchGymUseCaseResponse {
 }
 
 export class SearchGymUseCase {
-    constructor(private searchGymsByTitle: ISearchGymsByTitle) {}
+    constructor(private searchGymsByTitle: ISearchGymsByTitleRepository) {}
     async execute({
         query,
         page,
