@@ -1,4 +1,7 @@
-import { IGetCheckinById, ISaveCheckin } from '@/repositories/interfaces'
+import {
+    IGetCheckinByIdRepository,
+    ISaveCheckinRepository,
+} from '@/repositories/interfaces'
 import { CheckIn } from '@prisma/client'
 import { LateCheckInValidationError, ResourceNotFoundError } from './errors'
 import dayjs from 'dayjs'
@@ -13,8 +16,8 @@ interface ValidateCheckinUseCaseResponse {
 
 export class ValidateCheckinUseCase {
     constructor(
-        private validateCheckin: IGetCheckinById,
-        private saveChecking: ISaveCheckin
+        private validateCheckin: IGetCheckinByIdRepository,
+        private saveChecking: ISaveCheckinRepository
     ) {}
     async execute({
         checkInID,
