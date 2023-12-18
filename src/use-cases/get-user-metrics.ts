@@ -1,4 +1,4 @@
-import { ICountCheckInsByUserId } from '@/repositories/interfaces'
+import { ICountCheckInsByUserIdRepository } from '@/repositories/interfaces'
 
 interface GetUserMetricsRequest {
     userId: string
@@ -9,7 +9,9 @@ interface GetUserMetricsResponse {
 }
 
 export class GetUserMetricsUseCase {
-    constructor(private findManyCheckInsByUserId: ICountCheckInsByUserId) {}
+    constructor(
+        private findManyCheckInsByUserId: ICountCheckInsByUserIdRepository
+    ) {}
 
     async execute({
         userId,
