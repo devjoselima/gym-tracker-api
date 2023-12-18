@@ -1,4 +1,4 @@
-import { IFetchNearBy } from '@/repositories/interfaces'
+import { IFetchNearByRepository } from '@/repositories/interfaces'
 import { Gym } from '@prisma/client'
 
 interface FetchNearByGymsParams {
@@ -11,7 +11,7 @@ interface FetchNearByGymsResponse {
 }
 
 export class FetchNearByGymsUseCase {
-    constructor(private fetchNearByGyms: IFetchNearBy) {}
+    constructor(private fetchNearByGyms: IFetchNearByRepository) {}
     async execute({
         userLatitude,
         userLongitude,
