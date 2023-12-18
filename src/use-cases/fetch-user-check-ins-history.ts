@@ -1,4 +1,4 @@
-import { IFindManyCheckInsByUserId } from '@/repositories/interfaces'
+import { IFindManyCheckInsByUserIdRepository } from '@/repositories/interfaces'
 
 import { CheckIn } from '@prisma/client'
 
@@ -12,7 +12,9 @@ interface FetchUserCheckInsHistoryResponse {
 }
 
 export class FetchUserCheckInsHistoryUseCase {
-    constructor(private findManyCheckInsByUserId: IFindManyCheckInsByUserId) {}
+    constructor(
+        private findManyCheckInsByUserId: IFindManyCheckInsByUserIdRepository
+    ) {}
 
     async execute({
         userId,
