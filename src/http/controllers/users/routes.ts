@@ -3,10 +3,10 @@ import {
     createUserController,
     authenticateController,
     profileController,
-} from './controllers/'
-import { verifyJWT } from './middlewares/verify-jwt'
+} from './'
+import { verifyJWT } from '@/http/middlewares/verify-jwt'
 
-export const appRoutes = async (app: FastifyInstance) => {
+export const usersRoutes = async (app: FastifyInstance) => {
     app.post('/users', createUserController)
     app.post('/sessions', authenticateController)
 
