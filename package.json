@@ -6,9 +6,13 @@
     "scripts": {
         "dev": "tsx watch src/server.ts",
         "start": "node build/server.js",
+        "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
+        "test:install-prisma-environment": "npm link vitest-environment-prisma",
         "build": "tsup src --out-dir build",
-        "test": "vitest run",
-        "test:watch": "vitest",
+        "test": "vitest run --dir src/use-cases/tests",
+        "test:watch": "vitest --dir src/use-cases/tests",
+        "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
+        "test:e2e": "vitest run --dir src/http",
         "test:coverage": "vitest run --coverage",
         "test:ui": "vitest --ui"
     },
@@ -19,6 +23,7 @@
         "@types/bcryptjs": "2.4.6",
         "@types/node": "20.10.3",
         "@vitest/ui": "1.0.1",
+        "npm-run-all": "4.1.5",
         "prisma": "5.6.0",
         "tsup": "8.0.1",
         "tsx": "4.6.2",
