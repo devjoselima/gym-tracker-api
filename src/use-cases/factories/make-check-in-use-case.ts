@@ -5,7 +5,7 @@ import {
 import { CreateCheckInUseCase } from '../checkin'
 import { PrismaGetGymByIdRepository } from '@/repositories/prisma/gym/get-gym-by-id'
 
-export function makeCheckIn() {
+export function makeCheckInUseCase() {
     const createCheckInRepository = new PrismaCreateCheckInRepository()
 
     const getCheckInByUserDateRepository =
