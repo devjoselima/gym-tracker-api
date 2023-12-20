@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 import { makeSearchGymsUseCase } from '@/use-cases/factories/make-search-gyms-use-case'
 
-export const createGymController = async (
+export const searchGymsController = async (
     request: FastifyRequest,
     reply: FastifyReply
 ) => {
