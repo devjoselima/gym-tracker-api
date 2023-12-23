@@ -7,7 +7,7 @@ import { LateCheckInValidationError, ResourceNotFoundError } from './errors'
 import dayjs from 'dayjs'
 
 interface ValidateCheckinUseCaseParams {
-    checkInID: string
+    checkInId: string
 }
 
 interface ValidateCheckinUseCaseResponse {
@@ -20,9 +20,9 @@ export class ValidateCheckinUseCase {
         private saveChecking: ISaveCheckinRepository
     ) {}
     async execute({
-        checkInID,
+        checkInId,
     }: ValidateCheckinUseCaseParams): Promise<ValidateCheckinUseCaseResponse> {
-        const checkIn = await this.validateCheckin.execute(checkInID)
+        const checkIn = await this.validateCheckin.execute(checkInId)
 
         if (!checkIn) {
             throw new ResourceNotFoundError()

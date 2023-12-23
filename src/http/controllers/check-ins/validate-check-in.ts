@@ -7,15 +7,15 @@ export const validateCheckInController = async (
     reply: FastifyReply
 ) => {
     const validateCheckInParamsSchema = z.object({
-        checkInID: z.string().uuid(),
+        checkInId: z.string().uuid(),
     })
 
-    const { checkInID } = validateCheckInParamsSchema.parse(request.params)
+    const { checkInId } = validateCheckInParamsSchema.parse(request.params)
 
     const validateCheckInUseCase = makeValidateCheckInUseCase()
 
     await validateCheckInUseCase.execute({
-        checkInID,
+        checkInId,
     })
 
     return reply.status(204).send()
