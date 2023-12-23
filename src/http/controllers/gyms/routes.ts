@@ -7,6 +7,7 @@ import {
     nearbyGymsController,
     searchGymsController,
 } from './'
+import { verifyUserRole } from '@/http/middlewares/verify-user-role'
 
 export const gymsRoutes = async (app: FastifyInstance) => {
     app.addHook('onRequest', verifyJWT)
@@ -14,5 +15,9 @@ export const gymsRoutes = async (app: FastifyInstance) => {
     app.get('/gyms/search', searchGymsController)
     app.get('/gyms/nearby', nearbyGymsController)
 
-    app.post('/gyms', createGymController)
+    app.post(
+        '/gyms',
+        { onRequest: [verifyUserRole('ADMIN')] },
+        createGymController
+    )
 }

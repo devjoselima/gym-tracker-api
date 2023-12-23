@@ -7,13 +7,15 @@ export const refreshController = async (
 ) => {
     await request.jwtVerify({ onlyCookie: true })
 
+    const { role } = request.user
+
     const refreshBodySchema = z.object({
         email: z.string().email(),
         password: z.string().min(6),
     })
 
     const token = await reply.jwtSign(
-        {},
+        { role },
         {
             sign: {
                 sub: request.user.sub,
@@ -22,7 +24,7 @@ export const refreshController = async (
     )
 
     const refreshToken = await reply.jwtSign(
-        {},
+        { role },
         {
             sign: {
                 sub: request.user.sub,
